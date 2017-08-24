@@ -9,4 +9,8 @@ public class User {
 
     private final String email;
 
+    private final NotifierTypes chosenNotifier;
+
+    private boolean hasPaidForSms;
+
 }

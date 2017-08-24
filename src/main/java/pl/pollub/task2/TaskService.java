@@ -17,20 +17,24 @@ public class TaskService {
 
     private final AtomicInteger counter = new AtomicInteger();
 
-    private TaskSummariser taskSummariser = TaskSummariser.getInstance();
-
     public Task createTaskForUser(int userId, Integer... contributors){
-        Task task = new Task(counter.incrementAndGet(),userService.getUserById(userId),
-                             contributors != null ? Arrays.stream(contributors)
-                                                            .map(userService::getUserById)
-                                                            .collect(Collectors.toList()) : Collections.emptyList());
+        Task task = new Task(counter.incrementAndGet(), userId,
+                             contributors != null ? Arrays.asList(contributors) : Collections.emptyList());
         tasks.put(task.getId(), task);
         return task;
     }
 
     public void completeTask(int taskId){
         Task task = tasks.get(taskId);
-        taskSummariser.completeTask(task);
+        List<Integer> userIds = new ArrayList(task.getContributors());
+        userIds.add(task.getUserId());
+
+        Set<String> emails = userIds.stream()
+                                    .map(userService::getUserById)
+                                    .map(User::getEmail)
+                                    .collect(Collectors.toSet());
+
+        emailNotifier.notify(taskId, emails);
     }
 
 }

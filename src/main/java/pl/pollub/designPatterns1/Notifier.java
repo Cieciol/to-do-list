@@ -1,4 +1,4 @@
-package pl.pollub.task2;
+package pl.pollub.designPatterns1;
 
 public interface Notifier {
 

@@ -43,7 +43,7 @@ public class TaskServiceTest {
     private void generateEmailsMock() {
         Mockito.when(userService.getUserById(Mockito.anyInt())).then(invocationOnMock -> {
             Integer id = invocationOnMock.getArgumentAt(0, int.class);
-            return new User(id, "user" + id + "@wp.pl",NotifierTypes.EmailNotifier);
+            return new User(id, "user" + id + "@wp.pl");
         });
     }
 

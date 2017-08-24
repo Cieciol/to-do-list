@@ -1,4 +1,4 @@
-package pl.pollub.task2;
+package pl.pollub.designPatterns1;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class TaskSummariser {
         return INSTANCE;
     }
 
-    void completeTask(Task task){
+    public void completeTask(Task task){
         completedTasks.put(task,new Date());
         doNotifyingStuff(task);
     }

@@ -1,0 +1,16 @@
+package pl.pollub.designPatterns1;
+
+import lombok.Data;
+
+@Data
+public class User {
+
+    private final int id;
+
+    private final String email;
+
+    private final NotifierTypes chosenNotifier;
+
+    private boolean hasPaidForSms;
+
+}

@@ -1,6 +1,8 @@
-package pl.pollub.designPatterns1;
+package pl.pollub.designPatterns1.Task.Service;
 
 import lombok.RequiredArgsConstructor;
+import pl.pollub.designPatterns1.Task.Model.Task;
+import pl.pollub.designPatterns1.User.UserService;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,14 +16,13 @@ public class TaskService {
 
     private final UserService userService;
 
-
     private final Map<Integer, Task> tasks = new HashMap<>();
 
     private final AtomicInteger counter = new AtomicInteger();
 
     private TaskSummariser taskSummariser = TaskSummariser.getInstance();
 
-    public Task createTaskForUser(int userId, Integer... contributors){
+    Task createTaskForUser(int userId, Integer... contributors){
         Task task = new Task(counter.incrementAndGet(),userService.getUserById(userId),
                              contributors != null ? Arrays.stream(contributors)
                                                             .map(userService::getUserById)

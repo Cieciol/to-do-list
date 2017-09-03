@@ -1,4 +1,9 @@
-package pl.pollub.designPatterns1;
+package pl.pollub.designPatterns1.Task.Service;
+
+import pl.pollub.designPatterns1.Comms.AbstractCommsFactory;
+import pl.pollub.designPatterns1.Notifier.Notifier;
+import pl.pollub.designPatterns1.Task.Model.Task;
+import pl.pollub.designPatterns1.User.User;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -11,9 +16,9 @@ public class TaskSummariser {
 
     private Connection databaseConnection = null;
 
+    @lombok.Getter
     private Map<Task,Date> completedTasks = new HashMap<>();
 
-    private NotifierFactory notifierFactory = new NotifierFactory();
     private Notifier notifier;
 
     private TaskSummariser(){
@@ -33,8 +38,9 @@ public class TaskSummariser {
         ArrayList<User> notified = (ArrayList<User>) task.getContributors();
         notified.add(task.getTaskOwner());
         notified.forEach((user -> {
-            notifier = notifierFactory.getNotifier(user.getChosenNotifier());
+            notifier = AbstractCommsFactory.createFactory(user).createNotifier();
             notifier.notify(task);
         }));
     }
+
 }

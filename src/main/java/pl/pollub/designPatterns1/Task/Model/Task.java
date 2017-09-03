@@ -1,6 +1,7 @@
-package pl.pollub.designPatterns1;
+package pl.pollub.designPatterns1.Task.Model;
 
 import lombok.Data;
+import pl.pollub.designPatterns1.User.User;
 
 import java.util.ArrayList;
 import java.util.List;
